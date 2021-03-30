@@ -57,33 +57,20 @@ class Market extends Component {
                         </tr>
                     </thead>
                     <tbody id="productList">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>iPhone x</td>
-                            <td>1 Eth</td>
-                            <td>0x39C7BC5496f4eaaa1fF75d88E079C22f0519E7b9</td>
-                            <td>
-                                <button className="buyButton">Buy</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Macbook Pro</td>
-                            <td>3 eth</td>
-                            <td>0x39C7BC5496f4eaaa1fF75d88E079C22f0519E7b9</td>
-                            <td>
-                                <button className="buyButton">Buy</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Airpods</td>
-                            <td>0.5 eth</td>
-                            <td>0x39C7BC5496f4eaaa1fF75d88E079C22f0519E7b9</td>
-                            <td>
-                                <button className="buyButton">Buy</button>
-                            </td>
-                        </tr>
+                        {this.props.products.map((product, idx) => (
+                            <tr key={`product_${idx}`}>
+                                <th scope="row">{idx + 1}</th>
+                                <td>{product.name}</td>
+                                <td>{window.web3.utils.fromWei(product.price.toString(), 'Ether')} Eth</td>
+                                <td>{product.owner}</td>
+                                {!product.purchased && <td>
+                                    <button className="btn btn-outline-success" onClick={() => this.props.purchaseProduct(product.id, product.price)}>Buy</button>
+                                </td>
+                                }
+                            </tr>
+                        ))}
+
+
                     </tbody>
                 </table>
             </div>
